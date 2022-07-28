@@ -3,7 +3,7 @@
 //
 
 
-#include <std_msgs/UInt8MultiArray.h>
+#include <std_msgs/Int8MultiArray.h>
 #include <QProcess>
 #include "mainwindow.h"
 //#include "ui_main_ui.h"
@@ -132,6 +132,13 @@ void MainWindow::changeStartStopButton() {
         std::cout << "STARTING\n";
         ui->start_stop_button->setText("STOP");
         ui->start_stop_button->setStyleSheet("background-color: red");
+        // printf("I+DIDAASD");
+        //override suara
+        // gotoTerminal((2));
+        // std_msgs::Int32MultiArray msg_int32;
+        // msg_int32.data.push_back(1);
+        // msg_int32.data.push_back(2);
+        // stateTerminalCallback(msg_int32);
     // }else if(ui->start_stop_button->text() == "STOP") {
     //     msg.data.push_back(0);
     //     std::cout << "STOPPING\n";
@@ -154,12 +161,12 @@ void MainWindow::changeStartStopButton() {
 
 }
 
-void MainWindow::stateTerminalCallback(const std_msgs::UInt8MultiArray::ConstPtr& msg){
-    if(msg->data.size() < 2){
+void MainWindow::stateTerminalCallback(const std_msgs::Int32MultiArray msg){
+    if(msg.data.size() < 2){
         return;
     }
-    terminal_dest_fb = msg->data[0];
-    is_auto = msg->data[1];
+    terminal_dest_fb = msg.data[0];
+    is_auto = msg.data[1];
     std::cout << "GET STATE TERMINAL "<<is_auto <<std::endl;
     switch (is_auto) {
         case 0:

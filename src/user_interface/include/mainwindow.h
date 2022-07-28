@@ -14,6 +14,8 @@
 #include <iostream>
 #include <mutex>
 #include <thread>
+#include <std_msgs/Int8MultiArray.h>
+#include <std_msgs/Int32MultiArray.h>
 #include <std_msgs/UInt8MultiArray.h>
 #include <geometry_msgs/TwistStamped.h>
 #include "rviz_plugin/userCmd.h"
@@ -51,7 +53,7 @@ private:
     void changeTerminalButton(int terminal, bool status);
     void updateTerminalButton(int terminal);
     void changeStartStopButton();
-    void stateTerminalCallback(const std_msgs::UInt8MultiArray::ConstPtr& msg);
+    void stateTerminalCallback(const std_msgs::Int32MultiArray msg);
     void sendControlCallback(const geometry_msgs::Twist &msg);
     void localVelCallback(const geometry_msgs::TwistStamped &msg);
     void terminalArrived(int terminal);

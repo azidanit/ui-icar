@@ -15,6 +15,7 @@ App::App(int &argc, char** argv)
     w = new MainWindow();
     ROS_INFO("User Interface App started");
     w->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+    w->setWindowState(Qt::WindowFullScreen);
     w->show();
 
 

@@ -7,7 +7,7 @@ import struct, time
 
 import rospy
 from sensor_msgs.msg import NavSatFix
-from std_msgs.msg import Int8, UInt8MultiArray
+from std_msgs.msg import Int8, UInt8MultiArray, Int32MultiArray
 
 class CommUDP:
     def __init__(self) -> None:
@@ -20,6 +20,8 @@ class CommUDP:
         self.serverAddressPort = (self.main_pc_ip, self.main_pc_port_tx)
 
         self.publish_pos = rospy.Publisher('/mavros/global_position/global', NavSatFix, queue_size=10)
+        self.state_terminal_pub = rospy.Publisher("/autonomous_car/state_terminal", Int32MultiArray,queue_size=10)
+
         self.terminal_cmd_sub = rospy.Subscriber("/webapi/terminal_call", Int8, callback=self.terminalCallCallback)
         self.ui_cmd_sub = rospy.Subscriber("/user_interface/user_cmd", UInt8MultiArray, callback=self.uiCallCallback)
 
@@ -128,4 +130,9 @@ class CommUDP:
             self.status_auto = msg.data[0]
             self.terminal_cmd = msg.data[1]
             self.var_mtx.release()
+
+            msg_int32 = Int32MultiArray()
+            msg_int32.data.append(1)
+            msg_int32.data.append(2)
+            self.state_terminal_pub.publish(msg_int32)
         

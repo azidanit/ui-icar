@@ -1,0 +1,4 @@
+<launch>
+        <node pkg="user_interface" name="user_interface_node" type="user_interface_node" output="screen"/>
+
+</launch>
