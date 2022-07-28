@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1106</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="overview_button">
+    <property name="geometry">
+     <rect>
+      <x>26</x>
+      <y>17</y>
+      <width>402</width>
+      <height>335</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Assets/active/Overview Button.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="terminal_button">
+    <property name="geometry">
+     <rect>
+      <x>26</x>
+      <y>353</y>
+      <width>402</width>
+      <height>335</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Assets/notActive/Terminal Button.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="map_button">
+    <property name="geometry">
+     <rect>
+      <x>26</x>
+      <y>687</y>
+      <width>402</width>
+      <height>335</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Assets/notActive/Map Button.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="weather_bar">
+    <property name="geometry">
+     <rect>
+      <x>451</x>
+      <y>593</y>
+      <width>579</width>
+      <height>297</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Assets/weather_bar.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="car_bar">
+    <property name="geometry">
+     <rect>
+      <x>451</x>
+      <y>17</y>
+      <width>1447</width>
+      <height>557</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Assets/car_bar.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="media_bar">
+    <property name="geometry">
+     <rect>
+      <x>451</x>
+      <y>904</y>
+      <width>579</width>
+      <height>115</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Assets/media_bar.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="auto_nav_bar">
+    <property name="geometry">
+     <rect>
+      <x>1045</x>
+      <y>593</y>
+      <width>853</width>
+      <height>429</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Assets/auto_nav_bar.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="battery_label">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>466</y>
+      <width>141</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>36</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>75 %</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="speed_label">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>200</y>
+      <width>141</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>82</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>24</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="speed_unit_label">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>326</y>
+      <width>141</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>36</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>km/h</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="driving_mode">
+    <property name="geometry">
+     <rect>
+      <x>1505</x>
+      <y>216</y>
+      <width>251</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>43</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 139, 232);</string>
+    </property>
+    <property name="text">
+     <string>Manual</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="driving_label">
+    <property name="geometry">
+     <rect>
+      <x>1508</x>
+      <y>286</y>
+      <width>241</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>43</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 139, 232);</string>
+    </property>
+    <property name="text">
+     <string>Driving</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="terminal1_button">
+    <property name="geometry">
+     <rect>
+      <x>1059</x>
+      <y>606</y>
+      <width>341</width>
+      <height>119</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Assets/notActive/Terminal1.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="terminal2_button">
+    <property name="geometry">
+     <rect>
+      <x>1060</x>
+      <y>750</y>
+      <width>341</width>
+      <height>119</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Assets/notActive/Terminal2.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="terminal3_button">
+    <property name="geometry">
+     <rect>
+      <x>1060</x>
+      <y>890</y>
+      <width>341</width>
+      <height>119</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Assets/notActive/Terminal3.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="start_stop_button_label">
+    <property name="geometry">
+     <rect>
+      <x>1502</x>
+      <y>671</y>
+      <width>313</width>
+      <height>313</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Assets/start.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="time_now">
+    <property name="geometry">
+     <rect>
+      <x>1086</x>
+      <y>19</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>30</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>08:54</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>1040</y>
+      <width>421</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>ICAR - ITS SELF DRIVING CAR</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>1490</x>
+      <y>1035</y>
+      <width>421</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Powered By : ITS Robotics Team</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="terminal_1_button">
+    <property name="geometry">
+     <rect>
+      <x>1059</x>
+      <y>606</y>
+      <width>341</width>
+      <height>119</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>24</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: blue;</string>
+    </property>
+    <property name="text">
+     <string>Terminal 1</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="terminal_2_button">
+    <property name="geometry">
+     <rect>
+      <x>1060</x>
+      <y>750</y>
+      <width>341</width>
+      <height>119</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>24</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Terminal 2</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="terminal_3_button">
+    <property name="geometry">
+     <rect>
+      <x>1060</x>
+      <y>890</y>
+      <width>341</width>
+      <height>119</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>24</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Terminal 3</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="start_stop_button">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>678</y>
+      <width>451</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>63</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+background-color: green;</string>
+    </property>
+    <property name="text">
+     <string>START</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="formLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>1060</x>
+      <y>550</y>
+      <width>160</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Last Check : </string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Next  Stop:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="last_ckpt">
+       <property name="text">
+        <string>3</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="next_stop">
+       <property name="text">
+        <string>1</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1920</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
