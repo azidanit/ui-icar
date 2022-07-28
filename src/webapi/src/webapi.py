@@ -75,9 +75,11 @@ class WebAPI:
             time.sleep(2)
     
     def position_callback(self, msg):
+        lat_ = "{:.7f}".format(msg.latitude)
+        long_ = "{:.7f}".format(msg.longitude)
         self.position_lock.acquire()
-        self.current_position['latitude'] = msg.latitude
-        self.current_position['longitude'] = msg.longitude
+        self.current_position['latitude'] = lat_
+        self.current_position['longitude'] = long_
         self.position_lock.release()
 
     def __del__(self):

@@ -217,7 +217,7 @@ void MainWindow::playTerminalVoice(int terminal) {
             playSound("rektorat_sampai.wav",1,1);
             break;
         case 3:
-            // playSound("bundaran_its.wav",1,1);
+            playSound("bundaran_its.wav",1,1);
             break;
     } 
 

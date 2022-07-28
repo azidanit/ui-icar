@@ -29,6 +29,7 @@ class CommUDP:
 
         self.status_auto = 0
         self.terminal_cmd = 0
+        self.going_to_terminal = 0
 
         self.var_mtx = Lock()
 
@@ -116,9 +117,14 @@ class CommUDP:
                 msg_int32.data.append(1)
                 self.state_terminal_pub.publish(msg_int32)
                 msg_int32 = Int32MultiArray()
-                msg_int32.data.append(1)
+                msg_int32.data.append(self.going_to_terminal)
                 msg_int32.data.append(4)
                 self.state_terminal_pub.publish(msg_int32)
+
+                self.var_mtx.acquire()
+                self.status_auto = 0
+                self.terminal_cmd = 0
+                self.var_mtx.release()
 
                 self.is_arrived = True
         else:
@@ -141,12 +147,15 @@ class CommUDP:
             except Exception as e:
                 print(e)
 
-            time.sleep(0.1)
+            time.sleep(0.5)
 
     def terminalCallCallback(self, msg):
         self.var_mtx.acquire()
         self.status_auto = 1
         self.terminal_cmd = msg.data
+        self.going_to_terminal= msg.data
+        if self.going_to_terminal == 1:
+            self.going_to_terminal = 3
         self.var_mtx.release()
 
     def uiCallCallback(self, msg):
