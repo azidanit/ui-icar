@@ -11,7 +11,7 @@ from std_msgs.msg import Int8, UInt8MultiArray, Int32MultiArray
 
 class CommUDP:
     def __init__(self) -> None:
-        self.main_pc_ip = "192.168.89.158"
+        self.main_pc_ip = "192.168.50.251"
         self.main_pc_port_rx = 9002
         self.main_pc_port_tx = 9001
 
