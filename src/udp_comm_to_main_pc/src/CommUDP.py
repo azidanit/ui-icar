@@ -25,6 +25,7 @@ class CommUDP:
         self.terminal_cmd_sub = rospy.Subscriber("/webapi/terminal_call", Int8, callback=self.terminalCallCallback)
         self.ui_cmd_sub = rospy.Subscriber("/user_interface/user_cmd", UInt8MultiArray, callback=self.uiCallCallback)
 
+        self.is_arrived = False
 
         self.status_auto = 0
         self.terminal_cmd = 0
@@ -109,14 +110,19 @@ class CommUDP:
         self.publish_pos.publish(nav_sat_msg)
 
         if float(dist_) <= 3:
-            msg_int32 = Int32MultiArray()
-            msg_int32.data.append(2)
-            msg_int32.data.append(1)
-            self.state_terminal_pub.publish(msg_int32)
-            msg_int32 = Int32MultiArray()
-            msg_int32.data.append(1)
-            msg_int32.data.append(4)
-            self.state_terminal_pub.publish(msg_int32)
+            if not self.is_arrived:
+                msg_int32 = Int32MultiArray()
+                msg_int32.data.append(2)
+                msg_int32.data.append(1)
+                self.state_terminal_pub.publish(msg_int32)
+                msg_int32 = Int32MultiArray()
+                msg_int32.data.append(1)
+                msg_int32.data.append(4)
+                self.state_terminal_pub.publish(msg_int32)
+
+                self.is_arrived = True
+        else:
+            self.is_arrived = False            
         pass
 
     def sendUDPThread(self):
