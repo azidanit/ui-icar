@@ -141,8 +141,9 @@ class CommUDP:
             self.terminal_cmd = msg.data[1]
             self.var_mtx.release()
 
-            msg_int32 = Int32MultiArray()
-            msg_int32.data.append(1)
-            msg_int32.data.append(2)
-            self.state_terminal_pub.publish(msg_int32)
+            if self.status_auto == 1:
+                msg_int32 = Int32MultiArray()
+                msg_int32.data.append(1)
+                msg_int32.data.append(2)
+                self.state_terminal_pub.publish(msg_int32)
         
