@@ -12,8 +12,8 @@ from std_msgs.msg import Int8, UInt8MultiArray, Int32MultiArray
 class CommUDP:
     def __init__(self) -> None:
         self.main_pc_ip = "192.168.89.158"
-        self.main_pc_port_rx = 9001
-        self.main_pc_port_tx = 9002
+        self.main_pc_port_rx = 9002
+        self.main_pc_port_tx = 9001
 
         self.bufferSize = 1024        
 
@@ -37,8 +37,8 @@ class CommUDP:
 
     def start(self):
         # self.listenUDPThread()
-        self.listen_thread = Thread(target=self.listenUDPThread)
-        self.listen_thread.start()
+        # self.listen_thread = Thread(target=self.listenUDPThread)
+        # self.listen_thread.start()
 
         self.send_thread = Thread(target=self.sendUDPThread)
         self.send_thread.start()
@@ -121,12 +121,21 @@ class CommUDP:
 
     def sendUDPThread(self):
         while not rospy.is_shutdown():
-            bytesToSend = bytearray(struct.pack("i", self.status_auto))
-            bytesToSend += bytearray(struct.pack("i", self.terminal_cmd))
+            bytesToSend = bytearray(struct.pack("b", self.status_auto))
+            bytesToSend += bytearray(struct.pack("b", self.terminal_cmd))
             print("sending", bytesToSend, len(bytesToSend))
             self.UDPServerSocket.sendto(bytesToSend, self.serverAddressPort)
+            try:
+                bytesAddressPair = self.UDPServerSocket.recvfrom(self.bufferSize)
 
-            time.sleep(0.5)
+                message = bytesAddressPair[0]
+
+                address = bytesAddressPair[1]
+                self.parseIncomingMsg(message)
+            except Exception as e:
+                print(e)
+
+            time.sleep(0.1)
 
     def terminalCallCallback(self, msg):
         self.var_mtx.acquire()
