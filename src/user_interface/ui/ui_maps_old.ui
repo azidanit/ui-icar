@@ -17,6 +17,30 @@
    <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="map_bar">
+    <property name="geometry">
+     <rect>
+      <x>19</x>
+      <y>21</y>
+      <width>1239</width>
+      <height>1034</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>Assets/peta_bar.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+   </widget>
    <widget class="QLabel" name="overview_bar">
     <property name="geometry">
      <rect>
@@ -235,7 +259,7 @@ color: rgb(255, 255, 255);</string>
     <property name="geometry">
      <rect>
       <x>690</x>
-      <y>30</y>
+      <y>40</y>
       <width>271</width>
       <height>41</height>
      </rect>
@@ -246,8 +270,7 @@ color: rgb(255, 255, 255);</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgba(255, 255, 255,0);
-color: rgb(255, 255, 255);</string>
+     <string notr="true">background-color: rgba(255, 255, 255,0);</string>
     </property>
     <property name="text">
      <string>Parked</string>
@@ -260,7 +283,7 @@ color: rgb(255, 255, 255);</string>
     <property name="geometry">
      <rect>
       <x>980</x>
-      <y>30</y>
+      <y>40</y>
       <width>251</width>
       <height>41</height>
      </rect>
@@ -271,8 +294,7 @@ color: rgb(255, 255, 255);</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgba(255, 255, 255,0);
-color: rgb(255, 255, 255);</string>
+     <string notr="true">background-color: rgba(255, 255, 255,0);</string>
     </property>
     <property name="text">
      <string>Autonomous</string>
@@ -281,34 +303,6 @@ color: rgb(255, 255, 255);</string>
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <widget class="QWebView" name="webView">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>1241</width>
-      <height>1051</height>
-     </rect>
-    </property>
-    <property name="url">
-     <url>
-      <string>https://riset.its.ac.id/icar/</string>
-     </url>
-    </property>
-   </widget>
-   <zorder>webView</zorder>
-   <zorder>overview_bar</zorder>
-   <zorder>auto_bar</zorder>
-   <zorder>label_4</zorder>
-   <zorder>label_5</zorder>
-   <zorder>last_ckpt</zorder>
-   <zorder>next_stop</zorder>
-   <zorder>start_stop_button</zorder>
-   <zorder>terminal_1_button</zorder>
-   <zorder>terminal_2_button</zorder>
-   <zorder>terminal_3_button</zorder>
-   <zorder>driving_mode</zorder>
-   <zorder>driving_label</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -322,13 +316,6 @@ color: rgb(255, 255, 255);</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QWebView</class>
-   <extends>QWidget</extends>
-   <header location="global">QtWebKitWidgets/QWebView</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

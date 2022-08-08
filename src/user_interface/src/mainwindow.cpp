@@ -63,7 +63,7 @@ void MainWindow::initConnection() {
 
 void MainWindow::initUi() {
     path_pkg = ros::package::getPath("user_interface");
-    ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/bundaran1_2.png").c_str()));
+    // ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/bundaran1_2.png").c_str()));
 //    ui->car_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/car_bar.png").c_str()));
 //    ui->media_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/media_bar.png").c_str()));
 //    ui->weather_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/weather_bar.png").c_str()));
@@ -244,11 +244,11 @@ void MainWindow::terminalArrived(int terminal){
 
     ui->last_ckpt->setText(HALTE_NAME[terminal].c_str());
     if (terminal == 1){
-        ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/rektorat1_2.png").c_str()));
+        // ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/rektorat1_2.png").c_str()));
     }else if (terminal == 2){
-        ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/rektorat2_2.png").c_str()));
+        // ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/rektorat2_2.png").c_str()));
     }else if(terminal == 3){
-        ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/parkiran_manarul_2.png").c_str()));
+        // ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/parkiran_manarul_2.png").c_str()));
     }
     playSound("notif_1.5s.wav",1.5,2);
 }
