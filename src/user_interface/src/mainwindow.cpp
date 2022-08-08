@@ -98,6 +98,9 @@ void MainWindow::changeTerminalButton(int terminal, bool status){
     // ui->terminal_3_button->setText("Terminal 3");
 
     if (status==1){
+        if (terminal > 6){
+            terminal = 1;
+        }
         switch (terminal) {
             case 1:
                 ui->terminal_1_button->setStyleSheet("background-color: rgb(0,131,216);color:white");
