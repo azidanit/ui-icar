@@ -61,7 +61,7 @@ class WebAPI:
                     resp_obj = json.loads(resp)
                     terminal_msg.data = int(resp_obj['terminal_id'])
                     print(terminal_msg.data, type(terminal_msg.data))
-                    if(terminal_msg.data <= 3):
+                    if(terminal_msg.data <= 6):
                         print("KIRIM ", terminal_msg.data, type(terminal_msg.data))
                         self.terminal_pub.publish(terminal_msg)
             time.sleep(2)

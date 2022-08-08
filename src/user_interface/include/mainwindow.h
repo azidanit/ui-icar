@@ -37,7 +37,7 @@ public:
 
 
 private:
-    const std::string HALTE_NAME[4] = {" ", "Rektorat 1", "Rektorat 2", "Bundaran"};
+    const std::string HALTE_NAME[7] = {" ", "Asrama", "Manarul Ilmi", "Bundaran", "Teknik Lingkungan", "Rektorat", "Kantin Pusat"};
     ros::NodeHandle nh;
     ros::Publisher user_cmd_publisher;
     ros::Subscriber send_ctrl_subs, state_terminal_subs, mavros_speed, odom_sub;

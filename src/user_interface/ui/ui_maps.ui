@@ -171,7 +171,7 @@ color: rgb(255, 255, 255);</string>
      <string>START</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="terminal_1_button">
+   <widget class="QPushButton" name="terminal_2_button">
     <property name="geometry">
      <rect>
       <x>1464</x>
@@ -192,7 +192,7 @@ color: rgb(255, 255, 255);</string>
      <string>Halte Manarul Ilmi</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="terminal_2_button">
+   <widget class="QPushButton" name="terminal_4_button">
     <property name="geometry">
      <rect>
       <x>1464</x>
@@ -213,7 +213,7 @@ color: rgb(255, 255, 255);</string>
      <string>Halte Teknik Lingungan</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="terminal_3_button">
+   <widget class="QPushButton" name="terminal_6_button">
     <property name="geometry">
      <rect>
       <x>1464</x>
@@ -299,7 +299,7 @@ color: rgb(255, 255, 255);</string>
      </url>
     </property>
    </widget>
-   <widget class="QPushButton" name="terminal_1_button_2">
+   <widget class="QPushButton" name="terminal_1_button">
     <property name="geometry">
      <rect>
       <x>1034</x>
@@ -320,7 +320,7 @@ color: rgb(255, 255, 255);</string>
      <string>Halte Asrama</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="terminal_2_button_2">
+   <widget class="QPushButton" name="terminal_3_button">
     <property name="geometry">
      <rect>
       <x>1034</x>
@@ -341,7 +341,7 @@ color: rgb(255, 255, 255);</string>
      <string>Halte Bundaran ITS</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="terminal_3_button_2">
+   <widget class="QPushButton" name="terminal_5_button">
     <property name="geometry">
      <rect>
       <x>1034</x>
@@ -412,14 +412,14 @@ color: rgb(255, 255, 255);</string>
    <zorder>last_ckpt</zorder>
    <zorder>next_stop</zorder>
    <zorder>start_stop_button</zorder>
-   <zorder>terminal_1_button</zorder>
    <zorder>terminal_2_button</zorder>
-   <zorder>terminal_3_button</zorder>
+   <zorder>terminal_4_button</zorder>
+   <zorder>terminal_6_button</zorder>
    <zorder>driving_mode</zorder>
    <zorder>driving_label</zorder>
-   <zorder>terminal_1_button_2</zorder>
-   <zorder>terminal_2_button_2</zorder>
-   <zorder>terminal_3_button_2</zorder>
+   <zorder>terminal_1_button</zorder>
+   <zorder>terminal_3_button</zorder>
+   <zorder>terminal_5_button</zorder>
    <zorder>label_6</zorder>
    <zorder>eta_label</zorder>
   </widget>

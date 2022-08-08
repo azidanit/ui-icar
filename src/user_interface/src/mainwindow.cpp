@@ -54,6 +54,9 @@ void MainWindow::initConnection() {
     connect(ui->terminal_1_button, &QPushButton::clicked, this, [=](){changeTerminalButton(1,1);});
     connect(ui->terminal_2_button, &QPushButton::clicked, this, [=](){changeTerminalButton(2,1);});
     connect(ui->terminal_3_button, &QPushButton::clicked, this, [=](){changeTerminalButton(3,1);});
+    connect(ui->terminal_4_button, &QPushButton::clicked, this, [=](){changeTerminalButton(4,1);});
+    connect(ui->terminal_5_button, &QPushButton::clicked, this, [=](){changeTerminalButton(5,1);});
+    connect(ui->terminal_6_button, &QPushButton::clicked, this, [=](){changeTerminalButton(6,1);});
     connect(ui->start_stop_button, &QPushButton::clicked, this, [=](){changeStartStopButton();});
 
     connect(mTimer, &QTimer::timeout, this, &MainWindow::playAttention);
@@ -72,8 +75,8 @@ void MainWindow::initUi() {
     ui->auto_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/auto_bar.png").c_str()));
 //    ui->terminal_button->setPixmap(QPixmap((path_pkg + "/ui/Assets/notActive/TerminalButton.png").c_str()));
 
-    this->changeTerminalButton(2, 1);
-    ui->terminal_3_button->setDisabled(true);
+    this->changeTerminalButton(1, 1);
+    // ui->terminal_3_button->setDisabled(true);
 }
 
 void MainWindow::changeTerminalButton(int terminal, bool status){
@@ -81,9 +84,14 @@ void MainWindow::changeTerminalButton(int terminal, bool status){
 
     terminal_mtx.lock();
     this->terminal_to = terminal;
+    terminal_mtx.unlock();
+
     ui->terminal_1_button->setStyleSheet("");
     ui->terminal_2_button->setStyleSheet("");
     ui->terminal_3_button->setStyleSheet("");
+    ui->terminal_4_button->setStyleSheet("");
+    ui->terminal_5_button->setStyleSheet("");
+    ui->terminal_6_button->setStyleSheet("");
 
     // ui->terminal_1_button->setText("Terminal 1");
     // ui->terminal_2_button->setText("Terminal 2");
@@ -99,6 +107,15 @@ void MainWindow::changeTerminalButton(int terminal, bool status){
                 break;
             case 3:
                 ui->terminal_3_button->setStyleSheet("background-color: rgb(0,131,216);color:white");
+                break;
+            case 4:
+                ui->terminal_4_button->setStyleSheet("background-color: rgb(0,131,216);color:white");
+                break;
+            case 5:
+                ui->terminal_5_button->setStyleSheet("background-color: rgb(0,131,216);color:white");
+                break;
+            case 6:
+                ui->terminal_6_button->setStyleSheet("background-color: rgb(0,131,216);color:white");
                 break;
         }
     }
@@ -120,18 +137,20 @@ void MainWindow::changeTerminalButton(int terminal, bool status){
         }
     }
 
-    terminal_mtx.unlock();
 }
 
 void MainWindow::changeStartStopButton() {
     playSound("notif_1.5s.wav",1.5,1);
     std_msgs::UInt8MultiArray msg;
-    if (ui->start_stop_button->text() == "START"){
+    if (ui->start_stop_button->text() == "CONFIRM START?"){
         // playSound("berangkat.wav",1,1);
         msg.data.push_back(1);
         std::cout << "STARTING\n";
         ui->start_stop_button->setText("STOP");
         ui->start_stop_button->setStyleSheet("background-color: red");
+
+        msg.data.push_back(terminal_to);
+        user_cmd_publisher.publish(msg);
         // printf("I+DIDAASD");
         //override suara
         // gotoTerminal((2));
@@ -149,15 +168,29 @@ void MainWindow::changeStartStopButton() {
     //     std::cout << "PAUSING\n";
     //     ui->start_stop_button->setText("STOP");
     //     ui->start_stop_button->setStyleSheet("background-color: red");
+    }else if(ui->start_stop_button->text() == "START"){
+        ui->start_stop_button->setText("CONFIRM START?");
+        ui->start_stop_button->setStyleSheet("background-color: orange");
+        
+        QTimer::singleShot(4000, [=]() { 
+            if(ui->start_stop_button->text() == "CONFIRM START?"){
+                ui->start_stop_button->setText("START");
+                ui->start_stop_button->setStyleSheet("background-color: green");
+            }
+            std::cout << "RESETT\n";
+
+         } );
     }else{
         msg.data.push_back(0);
         std::cout << "STOPPING\n";
         ui->start_stop_button->setText("START");
         ui->start_stop_button->setStyleSheet("background-color: green");
+
+        msg.data.push_back(terminal_to);
+        user_cmd_publisher.publish(msg);
     }
 
-    msg.data.push_back(terminal_to);
-    user_cmd_publisher.publish(msg);
+
 
 }
 
@@ -192,7 +225,10 @@ void MainWindow::stateTerminalCallback(const std_msgs::Int32MultiArray msg){
             ui->driving_mode->setText("Autonomous");
             ui->driving_label->setText("Driving");
             gotoTerminal((terminal_dest_fb));
-//            changeTerminalButton(0,0);
+            changeTerminalButton(terminal_dest_fb,1);
+            ui->start_stop_button->setText("STOP");
+            ui->start_stop_button->setStyleSheet("background-color: red");
+
             break;
 
         case 3:
@@ -211,13 +247,22 @@ void MainWindow::stateTerminalCallback(const std_msgs::Int32MultiArray msg){
 void MainWindow::playTerminalVoice(int terminal) {
     switch (terminal) {
         case 1:
-            playSound("rektorat_sampai.wav",1,1);
+            playSound("halte_sampai.wav",1,1);
             break;
         case 2:
-            playSound("rektorat_sampai.wav",1,1);
+            playSound("halte_sampai.wav",1,1);
             break;
         case 3:
-            playSound("bundaran_its.wav",1,1);
+            playSound("halte_sampai.wav",1,1);
+            break;
+        case 4:
+            playSound("halte_sampai.wav",1,1);
+            break;
+        case 5:
+            playSound("halte_sampai.wav",1,1);
+            break;
+        case 6:
+            playSound("halte_sampai.wav",1,1);
             break;
     } 
 
@@ -227,6 +272,9 @@ void MainWindow::updateTerminalButton(int terminal) {
     ui->terminal_1_button->setEnabled(true);
     ui->terminal_2_button->setEnabled(true);
     ui->terminal_3_button->setEnabled(true);
+    ui->terminal_4_button->setEnabled(true);
+    ui->terminal_5_button->setEnabled(true);
+    ui->terminal_6_button->setEnabled(true);
     if(terminal==1){
         ui->terminal_1_button->setDisabled(true);
     }
@@ -235,9 +283,16 @@ void MainWindow::updateTerminalButton(int terminal) {
     }
     else if(terminal==3){
         ui->terminal_3_button->setDisabled(true);
+    }else if(terminal==4){
+        ui->terminal_4_button->setDisabled(true);
+    }else if(terminal==5){
+        ui->terminal_5_button->setDisabled(true);
+    }else if(terminal==6){
+        ui->terminal_6_button->setDisabled(true);
     }
-    ui->terminal_3_button->setDisabled(true);
-    ui->terminal_1_button->setDisabled(true);
+
+    // ui->terminal_3_button->setDisabled(true);
+    // ui->terminal_1_button->setDisabled(true);
 }
 
 void MainWindow::terminalArrived(int terminal){
