@@ -181,13 +181,13 @@ void MainWindow::changeStartStopButton() {
 
          } );
     }else{
-        msg.data.push_back(0);
-        std::cout << "STOPPING\n";
-        ui->start_stop_button->setText("START");
-        ui->start_stop_button->setStyleSheet("background-color: green");
+        // msg.data.push_back(0);
+        // std::cout << "STOPPING\n";
+        // ui->start_stop_button->setText("START");
+        // ui->start_stop_button->setStyleSheet("background-color: green");
 
-        msg.data.push_back(terminal_to);
-        user_cmd_publisher.publish(msg);
+        // msg.data.push_back(terminal_to);
+        // user_cmd_publisher.publish(msg);
     }
 
 
