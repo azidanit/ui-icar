@@ -37,6 +37,7 @@ void MainWindow::initSubscriber() {
 //    mavros_speed = nh.subscribe("/mavros/local_position/velocity", 10, &MainWindow::localVelCallback, this);
     send_ctrl_subs = nh.subscribe("/data_to_stm", 10, &MainWindow::sendControlCallback, this);
     state_terminal_subs = nh.subscribe("/autonomous_car/state_terminal", 10, &MainWindow::stateTerminalCallback, this);
+    eta_subs = nh.subscribe("/user_interface/eta", 10, &MainWindow::etaCallback, this);
 
     subs_thread = std::thread(&MainWindow::subscribingThread, this);
 }
@@ -184,13 +185,33 @@ void MainWindow::changeStartStopButton() {
 
          } );
     }else{
-        // msg.data.push_back(0);
-        // std::cout << "STOPPING\n";
-        // ui->start_stop_button->setText("START");
-        // ui->start_stop_button->setStyleSheet("background-color: green");
 
-        // msg.data.push_back(terminal_to);
-        // user_cmd_publisher.publish(msg);
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, "Confirmation Stop", "Stop Autonomous Nav?",
+                                QMessageBox::Yes|QMessageBox::No);
+
+        // reply.setStandardButtons(QMessageBox::No);
+        // reply.addButton(QMessageBox::Yes);
+        // QTimer::singleShot(10000, reply, SLOT(close()));
+        // QTimer::singleShot(5000, [=]() { 
+        //     reply.done(0);
+
+        //  } );
+
+        if (reply == QMessageBox::Yes) {
+            // qDebug() << "Yes was clicked";
+            msg.data.push_back(0);
+            std::cout << "STOPPING\n";
+            ui->start_stop_button->setText("START");
+            ui->start_stop_button->setStyleSheet("background-color: green");
+
+            msg.data.push_back(terminal_to);
+            user_cmd_publisher.publish(msg);   
+                     
+        } else {
+            // qDebug() << "Yes was *not* clicked";
+        }
+
     }
 
 
@@ -336,6 +357,31 @@ void MainWindow::localVelCallback(const geometry_msgs::TwistStamped &msg) {
     out.precision(2);
     out << std::fixed << velocity_resultant;
 //    ui->speed_label->setText(QString(out.str().c_str()));
+}
+
+void MainWindow::etaCallback(const std_msgs::Float32 &msg) {
+    double eta = msg.data;
+    int minutes = eta / 60;
+
+    int seconds = (int)eta - (minutes * 60);
+
+    std::string str_ = std::to_string(minutes);
+    str_ += " m  ";
+
+    str_ += std::to_string(seconds);
+    str_ += " s";
+
+
+    // std::ostringstream out;
+    // out.precision(2);
+    // out << std::fixed << eta;
+    // // return out.str();
+    // std::string str_ = out.str();
+    // str_ += " m";
+
+    ui->eta_label->setText(str_.c_str());
+    // std::cout << "ETAAA" << eta << "\n";
+
 }
 
 void MainWindow::sendControlCallback(const geometry_msgs::Twist &msg) {

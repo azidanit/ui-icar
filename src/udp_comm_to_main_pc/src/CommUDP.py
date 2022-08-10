@@ -1,7 +1,11 @@
 
 from codecs import latin_1_decode
+from re import I
 import socket
+from this import s
 from threading import Thread, Lock
+
+import os
 
 import struct, time
 
@@ -11,7 +15,7 @@ from std_msgs.msg import Int8, UInt8MultiArray, Int32MultiArray, Float32
 
 class CommUDP:
     def __init__(self) -> None:
-        self.main_pc_ip = "192.168.50.251"
+        self.main_pc_ip = "192.168.50.254"
         self.main_pc_port_rx = 9002
         self.main_pc_port_tx = 9001
 
@@ -36,7 +40,33 @@ class CommUDP:
 
         self.initUdpSend()
         self.initUdpReceive()
+
+        self.dist_before = 0
+        self.is_car_start = 0
+        self.lat = 7.222
+        self.long = -112.2131231
         pass
+        self.openLastFile()
+
+    def openLastFile(self):
+        dir = "last_position.txt"
+        print("OPENING LAST FILE")
+        if not os.path.isfile(dir):
+            print("FILE NOT FOUND, making new file")
+            self.writeFile()
+        else:
+            print("Opening file")
+            f = open(dir, "r")
+            print(f.read())
+        pass
+
+    def writeFile(self):
+        dir = "last_position.xt"
+        print("writing file")
+        f = open(dir, "w")
+        str_msg = "{},{}".format(self.lat, self.long)
+        f.write(str_msg)
+        f.close()
 
     def start(self):
         # self.listenUDPThread()
@@ -98,13 +128,19 @@ class CommUDP:
         long_ = msg[8:16]
         dist_ = msg[16:20]
         eta_ = msg[20:24]
+        is_start = msg[24:25]
 
         lat_ = struct.unpack('d', lat_)[0]
         long_ = struct.unpack('d', long_)[0]
         dist_ = struct.unpack('f', dist_)[0]
         eta_ = struct.unpack('f', eta_)[0]
+        is_start = struct.unpack('b',is_start)[0]
         print(lat_, long_, dist_, eta_)
 
+        self.lat = lat_
+        self.long = long_
+
+# 
         nav_sat_msg = NavSatFix()
         nav_sat_msg.latitude = lat_
         nav_sat_msg.longitude = long_
@@ -132,6 +168,29 @@ class CommUDP:
         else:
             self.is_arrived = False            
         pass
+
+        if is_start != self.is_car_start:
+            if is_start == 1:
+                #doing play sound
+                msg_int32 = Int32MultiArray()
+                msg_int32.data.append(0)
+                msg_int32.data.append(2)
+                self.state_terminal_pub.publish(msg_int32)
+                pass
+            elif is_start == 0:
+                msg_int32 = Int32MultiArray()
+                msg_int32.data.append(self.going_to_terminal)
+                msg_int32.data.append(1)
+                self.state_terminal_pub.publish(msg_int32)
+
+        
+        print("DISTANCE ", dist_, self.dist_before)
+        print("IS START ", is_start, self.is_car_start)
+
+        self.is_car_start = is_start
+        self.dist_before = dist_
+
+
 
     def sendUDPThread(self):
         while not rospy.is_shutdown():
