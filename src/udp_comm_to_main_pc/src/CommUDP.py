@@ -198,7 +198,7 @@ class CommUDP:
                 msg_int32.data.append(1)
                 self.state_terminal_pub.publish(msg_int32)
                 msg_int32 = Int32MultiArray()
-                msg_int32.data.append(self.going_to_terminal)
+                msg_int32.data.append(self.going_to_terminal + 1)
                 msg_int32.data.append(4)
                 self.state_terminal_pub.publish(msg_int32)
 

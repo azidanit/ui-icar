@@ -272,21 +272,24 @@ void MainWindow::stateTerminalCallback(const std_msgs::Int32MultiArray msg){
 void MainWindow::playTerminalVoice(int terminal) {
     switch (terminal) {
         case 1:
-            playSound("halte_sampai.wav",1,1);
+            playSound("halte1.wav",1,1);
             break;
         case 2:
-            playSound("halte_sampai.wav",1,1);
+            playSound("halte2.wav",1,1);
             break;
         case 3:
-            playSound("halte_sampai.wav",1,1);
+            playSound("halte3.wav",1,1);
             break;
         case 4:
-            playSound("halte_sampai.wav",1,1);
+            playSound("halte4.wav",1,1);
             break;
         case 5:
-            playSound("halte_sampai.wav",1,1);
+            playSound("halte5.wav",1,1);
             break;
         case 6:
+            playSound("halte6.wav",1,1);
+            break;
+        case 0:
             playSound("halte_sampai.wav",1,1);
             break;
     } 
