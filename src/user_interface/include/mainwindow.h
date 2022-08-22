@@ -6,10 +6,13 @@
 #define SRC_MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include <ros/package.h>
 #include <ros/ros.h>
 #include <QtWidgets/QLabel>
 #include <QtWebKit/QtWebKit>
+// #include <QtWebKit/QWebView>
+// #include <QtWebView>
 
 #include <iostream>
 #include <mutex>
@@ -17,6 +20,7 @@
 #include <std_msgs/Int8MultiArray.h>
 #include <std_msgs/Int32MultiArray.h>
 #include <std_msgs/UInt8MultiArray.h>
+#include <std_msgs/Float32.h>
 #include <geometry_msgs/TwistStamped.h>
 #include "rviz_plugin/userCmd.h"
 
@@ -35,10 +39,10 @@ public:
 
 
 private:
-    const std::string HALTE_NAME[4] = {" ", "Rektorat 1", "Rektorat 2", "Bundaran"};
+    const std::string HALTE_NAME[7] = {" ", "Asrama", "Manarul Ilmi", "Bundaran", "Teknik Lingkungan", "Rektorat", "Kantin Pusat"};
     ros::NodeHandle nh;
     ros::Publisher user_cmd_publisher;
-    ros::Subscriber send_ctrl_subs, state_terminal_subs, mavros_speed, odom_sub;
+    ros::Subscriber send_ctrl_subs, state_terminal_subs, mavros_speed, odom_sub, eta_subs;
 
     std::thread subs_thread, play_sound_thread, play_blinker_sound_thread;
     Ui::MainWindow *ui;
@@ -56,6 +60,7 @@ private:
     void stateTerminalCallback(const std_msgs::Int32MultiArray msg);
     void sendControlCallback(const geometry_msgs::Twist &msg);
     void localVelCallback(const geometry_msgs::TwistStamped &msg);
+    void etaCallback(const std_msgs::Float32 &msg);
     void terminalArrived(int terminal);
     void gotoTerminal(int terminal);
     void playTerminalVoice(int terminal);

@@ -17,12 +17,36 @@
    <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="map_bar">
+    <property name="geometry">
+     <rect>
+      <x>19</x>
+      <y>21</y>
+      <width>1239</width>
+      <height>1034</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>Assets/peta_bar.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+   </widget>
    <widget class="QLabel" name="overview_bar">
     <property name="geometry">
      <rect>
-      <x>1032</x>
+      <x>1272</x>
       <y>790</y>
-      <width>861</width>
+      <width>612</width>
       <height>270</height>
      </rect>
     </property>
@@ -37,16 +61,13 @@
     <property name="pixmap">
      <pixmap>../Assets/overview_bar.png</pixmap>
     </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
    </widget>
    <widget class="QLabel" name="auto_bar">
     <property name="geometry">
      <rect>
-      <x>1025</x>
+      <x>1274</x>
       <y>26</y>
-      <width>861</width>
+      <width>612</width>
       <height>739</height>
      </rect>
     </property>
@@ -62,13 +83,13 @@
      <pixmap>../Assets/auto_bar.png</pixmap>
     </property>
     <property name="scaledContents">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>1051</x>
+      <x>1291</x>
       <y>859</y>
       <width>361</width>
       <height>51</height>
@@ -89,7 +110,7 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>1051</x>
+      <x>1291</x>
       <y>949</y>
       <width>371</width>
       <height>51</height>
@@ -110,9 +131,9 @@
    <widget class="QLabel" name="last_ckpt">
     <property name="geometry">
      <rect>
-      <x>1340</x>
+      <x>1717</x>
       <y>860</y>
-      <width>291</width>
+      <width>141</width>
       <height>51</height>
      </rect>
     </property>
@@ -131,9 +152,9 @@
    <widget class="QLabel" name="next_stop">
     <property name="geometry">
      <rect>
-      <x>1340</x>
+      <x>1720</x>
       <y>958</y>
-      <width>291</width>
+      <width>141</width>
       <height>51</height>
      </rect>
     </property>
@@ -152,9 +173,9 @@
    <widget class="QPushButton" name="start_stop_button">
     <property name="geometry">
      <rect>
-      <x>1034</x>
-      <y>483</y>
-      <width>851</width>
+      <x>1284</x>
+      <y>480</y>
+      <width>591</width>
       <height>261</height>
      </rect>
     </property>
@@ -171,33 +192,33 @@ color: rgb(255, 255, 255);</string>
      <string>START</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="terminal_1_button">
+    <property name="geometry">
+     <rect>
+      <x>1290</x>
+      <y>100</y>
+      <width>581</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Halte Rektorat 1</string>
+    </property>
+   </widget>
    <widget class="QPushButton" name="terminal_2_button">
     <property name="geometry">
      <rect>
-      <x>1464</x>
-      <y>100</y>
-      <width>411</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>Halte Manarul Ilmi</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="terminal_4_button">
-    <property name="geometry">
-     <rect>
-      <x>1464</x>
+      <x>1290</x>
       <y>220</y>
-      <width>411</width>
+      <width>581</width>
       <height>111</height>
      </rect>
     </property>
@@ -210,15 +231,15 @@ color: rgb(255, 255, 255);</string>
      <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>Halte Teknik Lingungan</string>
+     <string>Halte Rektorat 2</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="terminal_6_button">
+   <widget class="QPushButton" name="terminal_3_button">
     <property name="geometry">
      <rect>
-      <x>1464</x>
+      <x>1290</x>
       <y>340</y>
-      <width>411</width>
+      <width>581</width>
       <height>111</height>
      </rect>
     </property>
@@ -231,14 +252,14 @@ color: rgb(255, 255, 255);</string>
      <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>Halte Kantin Pusat</string>
+     <string>Halte Parkiran Masjid Manarul</string>
     </property>
    </widget>
    <widget class="QLabel" name="driving_mode">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>30</y>
+      <x>690</x>
+      <y>40</y>
       <width>271</width>
       <height>41</height>
      </rect>
@@ -249,8 +270,7 @@ color: rgb(255, 255, 255);</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgba(255, 255, 255,0);
-color: rgb(255, 255, 255);</string>
+     <string notr="true">background-color: rgba(255, 255, 255,0);</string>
     </property>
     <property name="text">
      <string>Parked</string>
@@ -262,8 +282,8 @@ color: rgb(255, 255, 255);</string>
    <widget class="QLabel" name="driving_label">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>30</y>
+      <x>980</x>
+      <y>40</y>
       <width>251</width>
       <height>41</height>
      </rect>
@@ -274,8 +294,7 @@ color: rgb(255, 255, 255);</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgba(255, 255, 255,0);
-color: rgb(255, 255, 255);</string>
+     <string notr="true">background-color: rgba(255, 255, 255,0);</string>
     </property>
     <property name="text">
      <string>Autonomous</string>
@@ -284,144 +303,6 @@ color: rgb(255, 255, 255);</string>
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <widget class="QWebView" name="webView">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>1001</width>
-      <height>1051</height>
-     </rect>
-    </property>
-    <property name="url">
-     <url>
-      <string>https://riset.its.ac.id/icar/</string>
-     </url>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="terminal_1_button">
-    <property name="geometry">
-     <rect>
-      <x>1034</x>
-      <y>100</y>
-      <width>411</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>Halte Asrama</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="terminal_3_button">
-    <property name="geometry">
-     <rect>
-      <x>1034</x>
-      <y>220</y>
-      <width>411</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>Halte Bundaran ITS</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="terminal_5_button">
-    <property name="geometry">
-     <rect>
-      <x>1034</x>
-      <y>340</y>
-      <width>411</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>Halte Rektorat</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>1590</x>
-      <y>910</y>
-      <width>81</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
-    </property>
-    <property name="text">
-     <string>ETA</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="eta_label">
-    <property name="geometry">
-     <rect>
-      <x>1670</x>
-      <y>910</y>
-      <width>201</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
-    </property>
-    <property name="text">
-     <string>ETA</string>
-    </property>
-   </widget>
-   <zorder>webView</zorder>
-   <zorder>overview_bar</zorder>
-   <zorder>auto_bar</zorder>
-   <zorder>label_4</zorder>
-   <zorder>label_5</zorder>
-   <zorder>last_ckpt</zorder>
-   <zorder>next_stop</zorder>
-   <zorder>start_stop_button</zorder>
-   <zorder>terminal_2_button</zorder>
-   <zorder>terminal_4_button</zorder>
-   <zorder>terminal_6_button</zorder>
-   <zorder>driving_mode</zorder>
-   <zorder>driving_label</zorder>
-   <zorder>terminal_1_button</zorder>
-   <zorder>terminal_3_button</zorder>
-   <zorder>terminal_5_button</zorder>
-   <zorder>label_6</zorder>
-   <zorder>eta_label</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -435,13 +316,6 @@ color: rgb(255, 255, 255);</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QWebView</class>
-   <extends>QWidget</extends>
-   <header location="global">QtWebKitWidgets/QWebView</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

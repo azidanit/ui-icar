@@ -37,6 +37,7 @@ void MainWindow::initSubscriber() {
 //    mavros_speed = nh.subscribe("/mavros/local_position/velocity", 10, &MainWindow::localVelCallback, this);
     send_ctrl_subs = nh.subscribe("/data_to_stm", 10, &MainWindow::sendControlCallback, this);
     state_terminal_subs = nh.subscribe("/autonomous_car/state_terminal", 10, &MainWindow::stateTerminalCallback, this);
+    eta_subs = nh.subscribe("/user_interface/eta", 10, &MainWindow::etaCallback, this);
 
     subs_thread = std::thread(&MainWindow::subscribingThread, this);
 }
@@ -54,6 +55,9 @@ void MainWindow::initConnection() {
     connect(ui->terminal_1_button, &QPushButton::clicked, this, [=](){changeTerminalButton(1,1);});
     connect(ui->terminal_2_button, &QPushButton::clicked, this, [=](){changeTerminalButton(2,1);});
     connect(ui->terminal_3_button, &QPushButton::clicked, this, [=](){changeTerminalButton(3,1);});
+    connect(ui->terminal_4_button, &QPushButton::clicked, this, [=](){changeTerminalButton(4,1);});
+    connect(ui->terminal_5_button, &QPushButton::clicked, this, [=](){changeTerminalButton(5,1);});
+    connect(ui->terminal_6_button, &QPushButton::clicked, this, [=](){changeTerminalButton(6,1);});
     connect(ui->start_stop_button, &QPushButton::clicked, this, [=](){changeStartStopButton();});
 
     connect(mTimer, &QTimer::timeout, this, &MainWindow::playAttention);
@@ -63,7 +67,7 @@ void MainWindow::initConnection() {
 
 void MainWindow::initUi() {
     path_pkg = ros::package::getPath("user_interface");
-    ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/bundaran1_2.png").c_str()));
+    // ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/bundaran1_2.png").c_str()));
 //    ui->car_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/car_bar.png").c_str()));
 //    ui->media_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/media_bar.png").c_str()));
 //    ui->weather_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/weather_bar.png").c_str()));
@@ -72,8 +76,8 @@ void MainWindow::initUi() {
     ui->auto_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/auto_bar.png").c_str()));
 //    ui->terminal_button->setPixmap(QPixmap((path_pkg + "/ui/Assets/notActive/TerminalButton.png").c_str()));
 
-    this->changeTerminalButton(2, 1);
-    ui->terminal_3_button->setDisabled(true);
+    this->changeTerminalButton(1, 1);
+    // ui->terminal_3_button->setDisabled(true);
 }
 
 void MainWindow::changeTerminalButton(int terminal, bool status){
@@ -81,15 +85,23 @@ void MainWindow::changeTerminalButton(int terminal, bool status){
 
     terminal_mtx.lock();
     this->terminal_to = terminal;
+    terminal_mtx.unlock();
+
     ui->terminal_1_button->setStyleSheet("");
     ui->terminal_2_button->setStyleSheet("");
     ui->terminal_3_button->setStyleSheet("");
+    ui->terminal_4_button->setStyleSheet("");
+    ui->terminal_5_button->setStyleSheet("");
+    ui->terminal_6_button->setStyleSheet("");
 
     // ui->terminal_1_button->setText("Terminal 1");
     // ui->terminal_2_button->setText("Terminal 2");
     // ui->terminal_3_button->setText("Terminal 3");
 
     if (status==1){
+        if (terminal > 6){
+            terminal = 1;
+        }
         switch (terminal) {
             case 1:
                 ui->terminal_1_button->setStyleSheet("background-color: rgb(0,131,216);color:white");
@@ -99,6 +111,15 @@ void MainWindow::changeTerminalButton(int terminal, bool status){
                 break;
             case 3:
                 ui->terminal_3_button->setStyleSheet("background-color: rgb(0,131,216);color:white");
+                break;
+            case 4:
+                ui->terminal_4_button->setStyleSheet("background-color: rgb(0,131,216);color:white");
+                break;
+            case 5:
+                ui->terminal_5_button->setStyleSheet("background-color: rgb(0,131,216);color:white");
+                break;
+            case 6:
+                ui->terminal_6_button->setStyleSheet("background-color: rgb(0,131,216);color:white");
                 break;
         }
     }
@@ -120,18 +141,20 @@ void MainWindow::changeTerminalButton(int terminal, bool status){
         }
     }
 
-    terminal_mtx.unlock();
 }
 
 void MainWindow::changeStartStopButton() {
     playSound("notif_1.5s.wav",1.5,1);
     std_msgs::UInt8MultiArray msg;
-    if (ui->start_stop_button->text() == "START"){
+    if (ui->start_stop_button->text() == "CONFIRM START?"){
         // playSound("berangkat.wav",1,1);
         msg.data.push_back(1);
         std::cout << "STARTING\n";
         ui->start_stop_button->setText("STOP");
-        ui->start_stop_button->setStyleSheet("background-color: red");
+        ui->start_stop_button->setStyleSheet("background-color: red; color : white");
+
+        msg.data.push_back(terminal_to);
+        user_cmd_publisher.publish(msg);
         // printf("I+DIDAASD");
         //override suara
         // gotoTerminal((2));
@@ -148,16 +171,44 @@ void MainWindow::changeStartStopButton() {
     //     msg.data.push_back(2);
     //     std::cout << "PAUSING\n";
     //     ui->start_stop_button->setText("STOP");
-    //     ui->start_stop_button->setStyleSheet("background-color: red");
-    }else{
-        msg.data.push_back(0);
-        std::cout << "STOPPING\n";
-        ui->start_stop_button->setText("START");
-        ui->start_stop_button->setStyleSheet("background-color: green");
+    //     ui->start_stop_button->setStyleSheet("background-color: red; color : white");
+    }else if(ui->start_stop_button->text() == "START"){
+        ui->start_stop_button->setText("CONFIRM START?");
+        ui->start_stop_button->setStyleSheet("background-color: orange; color : white");
+        
+        QTimer::singleShot(4000, [=]() { 
+            if(ui->start_stop_button->text() == "CONFIRM START?"){
+                ui->start_stop_button->setText("START");
+                ui->start_stop_button->setStyleSheet("background-color: green; color : white");
+            }
+            std::cout << "RESETT\n";
+
+         } );
+    }else if(ui->start_stop_button->text() == "STOP"){
+        ui->start_stop_button->setText("CONFIRM STOP?");
+        ui->start_stop_button->setStyleSheet("background-color: orange; color : white");
+        
+        QTimer::singleShot(3000, [=]() { 
+            if(ui->start_stop_button->text() == "CONFIRM STOP?"){
+                ui->start_stop_button->setText("STOP");
+                ui->start_stop_button->setStyleSheet("background-color: red; color : white");
+            }
+            std::cout << "RESETT\n";
+
+         } );
+
+
+    }else if(ui->start_stop_button->text() == "CONFIRM STOP?"){
+            msg.data.push_back(0);
+            std::cout << "STOPPING\n";
+            ui->start_stop_button->setText("START");
+            ui->start_stop_button->setStyleSheet("background-color: green;color : white");
+
+            msg.data.push_back(terminal_to);
+            user_cmd_publisher.publish(msg);   
     }
 
-    msg.data.push_back(terminal_to);
-    user_cmd_publisher.publish(msg);
+
 
 }
 
@@ -192,7 +243,10 @@ void MainWindow::stateTerminalCallback(const std_msgs::Int32MultiArray msg){
             ui->driving_mode->setText("Autonomous");
             ui->driving_label->setText("Driving");
             gotoTerminal((terminal_dest_fb));
-//            changeTerminalButton(0,0);
+            changeTerminalButton(terminal_dest_fb,1);
+            ui->start_stop_button->setText("STOP");
+            ui->start_stop_button->setStyleSheet("background-color: red");
+
             break;
 
         case 3:
@@ -205,19 +259,35 @@ void MainWindow::stateTerminalCallback(const std_msgs::Int32MultiArray msg){
         case 4:
             playTerminalVoice(terminal_dest_fb);
             break;
+
+        case 5: //change terminal tujuan
+            // gotoTerminal(());
+            ui->next_stop->setText(HALTE_NAME[terminal_dest_fb].c_str());
+            if (terminal_dest_fb == 1)
+                terminal_dest_fb = 7;
+            ui->last_ckpt->setText(HALTE_NAME[terminal_dest_fb - 1].c_str());
     }
 }
 
 void MainWindow::playTerminalVoice(int terminal) {
     switch (terminal) {
         case 1:
-            playSound("rektorat_sampai.wav",1,1);
+            playSound("halte_sampai.wav",1,1);
             break;
         case 2:
-            playSound("rektorat_sampai.wav",1,1);
+            playSound("halte_sampai.wav",1,1);
             break;
         case 3:
-            playSound("bundaran_its.wav",1,1);
+            playSound("halte_sampai.wav",1,1);
+            break;
+        case 4:
+            playSound("halte_sampai.wav",1,1);
+            break;
+        case 5:
+            playSound("halte_sampai.wav",1,1);
+            break;
+        case 6:
+            playSound("halte_sampai.wav",1,1);
             break;
     } 
 
@@ -227,6 +297,9 @@ void MainWindow::updateTerminalButton(int terminal) {
     ui->terminal_1_button->setEnabled(true);
     ui->terminal_2_button->setEnabled(true);
     ui->terminal_3_button->setEnabled(true);
+    ui->terminal_4_button->setEnabled(true);
+    ui->terminal_5_button->setEnabled(true);
+    ui->terminal_6_button->setEnabled(true);
     if(terminal==1){
         ui->terminal_1_button->setDisabled(true);
     }
@@ -235,20 +308,27 @@ void MainWindow::updateTerminalButton(int terminal) {
     }
     else if(terminal==3){
         ui->terminal_3_button->setDisabled(true);
+    }else if(terminal==4){
+        ui->terminal_4_button->setDisabled(true);
+    }else if(terminal==5){
+        ui->terminal_5_button->setDisabled(true);
+    }else if(terminal==6){
+        ui->terminal_6_button->setDisabled(true);
     }
-    ui->terminal_3_button->setDisabled(true);
-    ui->terminal_1_button->setDisabled(true);
+
+    // ui->terminal_3_button->setDisabled(true);
+    // ui->terminal_1_button->setDisabled(true);
 }
 
 void MainWindow::terminalArrived(int terminal){
 
     ui->last_ckpt->setText(HALTE_NAME[terminal].c_str());
     if (terminal == 1){
-        ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/rektorat1_2.png").c_str()));
+        // ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/rektorat1_2.png").c_str()));
     }else if (terminal == 2){
-        ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/rektorat2_2.png").c_str()));
+        // ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/rektorat2_2.png").c_str()));
     }else if(terminal == 3){
-        ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/parkiran_manarul_2.png").c_str()));
+        // ui->map_bar->setPixmap(QPixmap((path_pkg + "/ui/Assets/parkiran_manarul_2.png").c_str()));
     }
     playSound("notif_1.5s.wav",1.5,2);
 }
@@ -278,6 +358,31 @@ void MainWindow::localVelCallback(const geometry_msgs::TwistStamped &msg) {
     out.precision(2);
     out << std::fixed << velocity_resultant;
 //    ui->speed_label->setText(QString(out.str().c_str()));
+}
+
+void MainWindow::etaCallback(const std_msgs::Float32 &msg) {
+    double eta = msg.data;
+    int minutes = eta / 60;
+
+    int seconds = (int)eta - (minutes * 60);
+
+    std::string str_ = std::to_string(minutes);
+    str_ += " m  ";
+
+    str_ += std::to_string(seconds);
+    str_ += " s";
+
+
+    // std::ostringstream out;
+    // out.precision(2);
+    // out << std::fixed << eta;
+    // // return out.str();
+    // std::string str_ = out.str();
+    // str_ += " m";
+
+    ui->eta_label->setText(str_.c_str());
+    // std::cout << "ETAAA" << eta << "\n";
+
 }
 
 void MainWindow::sendControlCallback(const geometry_msgs::Twist &msg) {

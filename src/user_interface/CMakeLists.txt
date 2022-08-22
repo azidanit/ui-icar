@@ -13,7 +13,7 @@ find_package(catkin REQUIRED COMPONENTS roslib
   rviz_plugin
   geometry_msgs
 )
-find_package( Qt5 COMPONENTS Widgets Core Gui Concurrent REQUIRED )
+find_package( Qt5 COMPONENTS Widgets Core Gui Concurrent WebKitWidgets REQUIRED )
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -138,6 +138,7 @@ include_directories(
     ${Qt5Core_INCLUDE_DIRS}
     ${Qt5Gui_INCLUDE_DIRS}
     ${Qt5Concurrent_INCLUDE_DIRS}
+    ${Qt5WebEngineWidgets_INCLUDE_DIRS}
         ${QT_USE_FILE}
 )
 
@@ -179,6 +180,11 @@ target_link_libraries(${PROJECT_NAME}_node
         ${catkin_LIBRARIES}
         ${QT_LIBRARIES}
         ${QTWebKit}
+
+        # ${Qt5WebKitWidgets}
+        # ${Qt5WebView}
+        Qt5::WebKitWidgets
+        # Qt5::WebView
 
 )
 
